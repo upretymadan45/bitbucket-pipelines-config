@@ -1,0 +1,21 @@
+#  Template .NET Core build
+
+#  This template allows you to validate your .NET Core package.
+#  The workflow allows running tests and code linting on the default branch.
+
+image: mcr.microsoft.com/dotnet/sdk:6.0
+
+pipelines:
+  branches:
+    'test':
+      - step:
+            name: Build and Test
+            caches:
+              - dotnetcore
+            script:
+              - REPORTS_PATH=./test-reports/build_${BITBUCKET_BUILD_NUMBER}
+              - export SOLUTION_NAME=GraphQl
+              - export PROJECT_NAME=GraphQl/GraphQlDemo/GraphQlDemo.csproj
+              - dotnet restore $PROJECT_NAME
+              - dotnet build $PROJECT_NAME --no-restore --configuration Release
+              - dotnet test $PROJECT_NAME --no-build --configuration Release
