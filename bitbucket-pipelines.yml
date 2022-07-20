@@ -14,7 +14,6 @@ pipelines:
               - dotnetcore
             script:
               - REPORTS_PATH=./test-reports/build_${BITBUCKET_BUILD_NUMBER}
-              - export SOLUTION_NAME=GraphQl
               - export PROJECT_NAME=GraphQl/GraphQlDemo/GraphQlDemo.csproj
               - dotnet restore $PROJECT_NAME
               - dotnet build $PROJECT_NAME --no-restore --configuration Release
